@@ -43,7 +43,7 @@ done
 
 # Set defaults for optional variables
 SCOPE_SEED=${SCOPE_SEED:-"self-workshop"}
-NETWORK=${NETWORK:-"celo-sepolia"}
+NETWORK=${NETWORK:-"celo-mainnet"}  # Default to mainnet for production
 
 # Network configuration
 case "$NETWORK" in
@@ -163,10 +163,12 @@ case "$NETWORK" in
 esac
 
 # Encode constructor arguments for verification
+# IMPORTANT: These values must match DeployProofOfHuman.s.sol configuration
+# olderThan: 13, forbiddenCountries: [], ofacEnabled: false
 CONSTRUCTOR_ARGS=$(cast abi-encode "constructor(address,string,(uint256,string[],bool))" \
     $IDENTITY_VERIFICATION_HUB_ADDRESS \
     "$SCOPE_SEED" \
-    "(18,[\"USA\"],false)")
+    "(13,[],false)")
 
 # For Celo Sepolia, verify on Blockscout only (Celoscan Sepolia has verification issues)
 if [ "$NETWORK" = "celo-sepolia" ]; then
@@ -261,7 +263,7 @@ echo "| Hub Address | $IDENTITY_VERIFICATION_HUB_ADDRESS |"
 echo "| RPC URL | $RPC_URL |"
 echo "| Block Explorer | $BLOCK_EXPLORER_URL |"
 echo "| Scope Seed | $SCOPE_SEED |"
-echo "| Verification Config | olderThan: 18, forbiddenCountries: [USA], ofacEnabled: false |"
+echo "| Verification Config | olderThan: 13, forbiddenCountries: [], ofacEnabled: false |"
 echo
 print_success "Deployment Complete!"
 echo "1. ✅ Contract deployed successfully"

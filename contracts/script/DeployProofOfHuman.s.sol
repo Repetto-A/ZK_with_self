@@ -22,13 +22,20 @@ contract DeployProofOfHuman is BaseScript {
     function run() public broadcast returns (ProofOfHuman proofOfHuman) {
         address hubAddress = vm.envAddress("IDENTITY_VERIFICATION_HUB_ADDRESS");
         string memory scopeSeed = vm.envString("SCOPE_SEED");
-        string[] memory forbiddenCountries = new string[](0);
         
-        // Make sure this is the same as frontend config
+        // Validate hub address
+        if (hubAddress == address(0)) {
+            revert("IDENTITY_VERIFICATION_HUB_ADDRESS cannot be zero address");
+        }
+        
+        // Make sure this matches frontend config in app/app/page.tsx
+        // Frontend: minimumAge: 13, no excludedCountries (no countries are forbidden)
+        string[] memory forbiddenCountries = new string[](0);  // Empty array = no countries forbidden
+        
         SelfUtils.UnformattedVerificationConfigV2 memory verificationConfig = SelfUtils.UnformattedVerificationConfigV2({
-            olderThan: 13,
-            forbiddenCountries: forbiddenCountries,
-            ofacEnabled: false
+            olderThan: 13,  // Must match frontend minimumAge
+            forbiddenCountries: forbiddenCountries,  // Empty array = no countries are forbidden/all countries allowed
+            ofacEnabled: false  // Must match frontend ofac setting
         });
 
         // Deploy the contract using SCOPE_SEED from environment

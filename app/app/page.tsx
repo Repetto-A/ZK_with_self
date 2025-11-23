@@ -30,7 +30,7 @@ export default function Home() {
         logoBase64:
           "https://i.postimg.cc/mrmVf9hm/self.png", // url of a png image, base64 is accepted but not recommended
         userId: userId,
-        endpointType: "staging_celo",
+        endpointType: "celo",
           // [Onchain Verification] "celo" for mainnet smart contract ,
           // [Onchain Verification] "staging_celo" for testnet smart contract,
           // [Offchain Verification] "https" mainnet https endpoint,

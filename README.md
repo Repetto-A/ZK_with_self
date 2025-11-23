@@ -10,7 +10,7 @@ This main branch of the repo contains an example of onchain verification. If you
 
 - Node.js 20+
 - [Self Mobile App](https://self.xyz)
-- Celo wallet with testnet funds
+- Celo wallet with mainnet funds (CELO tokens)
 
 ---
 
@@ -49,7 +49,7 @@ Edit `.env` with your values:
 PRIVATE_KEY=0xyour_private_key_here
 
 # Network selection
-NETWORK=celo-sepolia
+NETWORK=celo-mainnet  # Use 'celo-sepolia' for testnet
 
 # Scope calculation
 SCOPE_SEED="self-workshop"
@@ -64,7 +64,7 @@ chmod +x script/deploy-proof-of-human.sh
 ./script/deploy-proof-of-human.sh
 ```
 
-> **⚠️ Troubleshooting Celo Sepolia**: If you encounter a `Chain 11142220 not supported` error when using `celo-sepolia`, update Foundry to version 0.3.0:
+> **⚠️ Troubleshooting Celo Sepolia (Testnet)**: If you encounter a `Chain 11142220 not supported` error when using `celo-sepolia` for testnet, update Foundry to version 0.3.0:
 > ```bash
 > foundryup --install 0.3.0
 > ```
@@ -191,17 +191,19 @@ contract ProofOfHuman is SelfVerificationRoot {
 
 ### Network Configuration
 
+#### Celo Mainnet (Production) ⭐
+- **Hub Address**: `0xe57F4773bd9c9d8b6Cd70431117d353298B9f5BF`
+- **RPC**: `https://forno.celo.org`
+- **Explorer**: `https://celoscan.io`
+- **Supports**: Real passport verification
+- **Default**: This is the default network configuration
+
 #### Celo Sepolia (Testnet)
 - **Hub Address**: `0x16ECBA51e18a4a7e61fdC417f0d47AFEeDfbed74`
 - **RPC**: `https://forno.celo-sepolia.celo-testnet.org`
 - **Explorer**: `https://celo-sepolia.blockscout.com/`
 - **Supports**: Mock passports for testing
-
-#### Celo Mainnet
-- **Hub Address**: `0xe57F4773bd9c9d8b6Cd70431117d353298B9f5BF`
-- **RPC**: `https://forno.celo.org`
-- **Explorer**: `https://celoscan.io`
-- **Supports**: Real passport verification
+- **Usage**: Set `NETWORK=celo-sepolia` in `.env` to use testnet
 
 ---
 

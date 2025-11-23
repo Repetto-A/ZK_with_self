@@ -49,14 +49,15 @@ cp .env.example .env
 Edit `.env` with your values:
 ```bash
 PRIVATE_KEY=0xyour_private_key_here
-NETWORK=celo-sepolia
+NETWORK=celo-mainnet  # Default: mainnet. Use 'celo-sepolia' for testnet
 SCOPE_SEED="self-workshop"
 ```
 
 ### 3. Deploy Contract
 
 ```shell
-# Deploy to Celo Sepolia testnet
+# Deploy to Celo Mainnet (default)
+# For testnet, set NETWORK=celo-sepolia in .env
 ./script/deploy-proof-of-human.sh
 ```
 
@@ -135,11 +136,19 @@ $ cast --help
 
 ## Network Configuration
 
+### Celo Mainnet (Production) ⭐
+- **Hub Address**: `0xe57F4773bd9c9d8b6Cd70431117d353298B9f5BF`
+- **RPC**: `https://forno.celo.org`
+- **Explorer**: `https://celoscan.io`
+- **Use for**: Production with real passport verification
+- **Default**: This is the default network configuration
+
 ### Celo Sepolia (Testnet)
 - **Hub Address**: `0x16ECBA51e18a4a7e61fdC417f0d47AFEeDfbed74`
 - **RPC**: `https://forno.celo-sepolia.celo-testnet.org`
 - **Explorer**: `https://celo-sepolia.blockscout.com/`
 - **Use for**: Testing with mock passports
+- **Usage**: Set `NETWORK=celo-sepolia` in `.env` to use testnet
 
 ### Celo Mainnet
 - **Hub Address**: `0xe57F4773bd9c9d8b6Cd70431117d353298B9f5BF`
